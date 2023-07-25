@@ -1,0 +1,44 @@
+configuration{
+	display-drun: "Applications";
+	display-window: "Windows: ";
+	drun-display-format: "{icon} {name}";
+	font : "RobotoMono Nerd Font Mono 12";	
+	modi: "window,run,drun";
+	show-icons: true;
+	icon-theme: "Papirus";
+}
+
+@import "~/.cache/wal/colors-rofi-dark"
+
+window{
+	width: 45%;
+}
+
+element{
+	padding: 10;
+}
+
+element selected{
+	text-color: @background;
+}
+
+element-icon {
+	size: 32;
+	padding: 0 10 0 0;
+}
+
+element-text {
+	text-color: inherit;
+	vertical-align: 0.5;
+}
+
+
+listview {
+	columns: 1;
+	lines: 10;
+}
+
+
+prompt {
+	enabled: true;
+}
