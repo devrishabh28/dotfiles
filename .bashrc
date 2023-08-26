@@ -15,7 +15,11 @@ alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 alias kindle='conda activate'
 alias usurp='conda deactivate'
 
-neofetch
+#neofetch
+
+neofetch --ascii_distro darkos
+
+#neofetch --backend kitty --source ~/Downloads/kate.jpg
 
 echo "May the fire be with you!"
 
@@ -34,3 +38,4 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+export PATH=$PATH:/home/abysswalker/.spicetify

@@ -27,12 +27,15 @@
 import os
 import subprocess
 
-from libqtile import bar, layout, widget
+from libqtile import bar, layout, widget 
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 from libqtile import hook
+
+from qtile_extras import widget
+from qtile_extras.widget.decorations import BorderDecoration, RectDecoration
 
 mod = "mod4"
 terminal = guess_terminal()
@@ -171,12 +174,45 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+rect_decoration = [
+    RectDecoration(
+        colour = colors[5],
+        filled = True,
+        padding_y = 8,
+        group=True
+    ),
+
+    RectDecoration(
+        colour = colors[2],
+        filled = True,
+        padding_y = 8,
+        group=True
+    ),
+
+    RectDecoration(
+        colour = colors[7],
+        filled = True,
+        padding_y = 8,
+        group=True
+    )
+]
+
 screens = [
     Screen(
         top=bar.Bar(
             [
                 #widget.Spacer(length=12),
                 widget.CurrentLayoutIcon(scale=0.4),
+
+                widget.Spacer(length=8),
+
+                widget.TextBox('{}'.format(os.environ.get('USER')),
+                               padding=16,
+                               foreground = colors[0],
+                               decorations = [rect_decoration[2]],
+                            ),
+
+                widget.Spacer(length=8),
 
                 widget.GroupBox(highlight_method='line',
                                 highlight_color = ['000000'],
@@ -198,32 +234,81 @@ screens = [
                 # widget.StatusNotifier(),
                 widget.Systray(),
 
-                widget.TextBox('NVIDIA ', foreground=colors[7]),
-                widget.NvidiaSensors(foreground=colors[7]),
+                widget.Spacer(length=8),
+
+                widget.TextBox('RYZEN ', padding=8, 
+                    foreground=colors[0],                             
+                     decorations = [rect_decoration[0]],   
+                ),
+                widget.ThermalSensor(
+                    padding = 12,
+                    foreground=colors[0],                  
+                    decorations = [rect_decoration[0]],                
+                    ),
+
+                widget.Spacer(length=8),
+
+                widget.TextBox('NVIDIA ', padding=8, 
+                    foreground=colors[0],                             
+                     decorations = [rect_decoration[0]],   
+                ),
+                widget.NvidiaSensors(
+                    padding = 12,
+                    foreground=colors[0],                  
+                    decorations = [rect_decoration[0]],                
+                    ),
  
-                widget.Spacer(length=16),
+                widget.Spacer(length=8),
                 
-                widget.TextBox("", fontsize=16, padding=10, mouse_callbacks={'Button1': lazy.spawn('pavucontrol')}, foreground=colors[7]),
-                widget.Volume(mouse_callbacks={'Button1': lazy.spawn('pavucontrol')}, foreground=colors[7]),
+                widget.TextBox("", fontsize=16, padding=10, mouse_callbacks={'Button1': lazy.spawn('pavucontrol')},
+                               foreground=colors[0],                             
+                                decorations = [rect_decoration[1]],   
+                               ),
+                widget.Volume(mouse_callbacks={'Button1': lazy.spawn('pavucontrol')}, padding=12,
+                              foreground=colors[0],                             
+                                decorations = [rect_decoration[1]],   
+                              ),
                 
                 widget.Spacer(length=8),
                 
-                widget.TextBox('󰃠',fontsize=16, padding=8, foreground=colors[7]),
-                widget.Backlight(backlight_name='nvidia_0', foreground=colors[7]),
+                widget.TextBox('󰃠',fontsize=16, padding=8, foreground=colors[0],
+                               decorations = [rect_decoration[1]],
+                                ),                                
+                widget.Backlight(backlight_name='nvidia_0',
+                                 brightness_file= '/sys/class/backlight/nvidia_0/actual_brightness', 
+                                 padding=12,
+                                 foreground=colors[0],                             
+                                decorations = [rect_decoration[1]], 
+                                update_interval = 0
+                                ),
                 
-                widget.TextBox('',fontsize=16, padding=16, foreground=colors[7]),
+                widget.Spacer(length=8),
+
+                widget.TextBox('',
+                               fontsize=16,
+                               padding=12,
+                               foreground=colors[0],                             
+                                decorations = [rect_decoration[2]],   
+                            ),
+                            
                 widget.Battery(format='{percent:2.0%} {char}',
                                update_interval=0.5,
                                empty_char='',
                                discharge_char='',
                                charge_char='',
                                low_percentage=0.2,
-                               foreground=colors[7]
-                               ),
+                               foreground=colors[0],
+                               padding=16,
+                               decorations = [rect_decoration[2]],   
+                            ),
                
-                widget.Spacer(length=16),
+                widget.Spacer(length=8),
                 
-                widget.Clock(format='%B %d, %H:%M', foreground=colors[6]),
+                widget.Clock(format='%B %d, %H:%M',
+                             foreground=colors[0],
+                             padding=16,
+                             decorations = [rect_decoration[2]]
+                            ),
                 
                 widget.Spacer(length=16),
             ],
