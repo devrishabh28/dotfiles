@@ -85,6 +85,8 @@ keys = [
     
     Key(['mod1'], "r", lazy.spawn('rofi -show drun'), desc="Spawn Rofi"),
     Key(['mod1'], "w", lazy.spawn('rofi -show window'), desc="Spawn Rofi Window Tabs"),
+    Key([mod], "f", lazy.spawn('firefox'), desc="Spawn Firefox"),
+    Key([mod], "c", lazy.spawn('code'), desc="Spawn VS Code"),
     #<--------------  SPAWN  ------------->
     
     #<--------------  KEY CONFIG -------------->
@@ -152,8 +154,17 @@ for i in groups:
     )
 
 layouts = [
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=0, margin=10, margin_on_single=12),
-    layout.Max(margin=12),
+    
+    layout.Columns(
+        border_focus=colors[7],
+        border_normal=colors[3],
+        border_width=2, 
+        border_on_single = True,
+        margin=6,
+        margin_on_single=10
+    ),
+
+    layout.Max(border_focus=colors[7], border_normal=colors[3],  border_width=2, margin=10),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
@@ -333,6 +344,9 @@ follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(
+    border_focus=colors[7],
+    border_normal=colors[3],
+    border_width=2,
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
         *layout.Floating.default_float_rules,

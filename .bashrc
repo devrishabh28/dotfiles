@@ -39,3 +39,6 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 export PATH=$PATH:/home/abysswalker/.spicetify
+export PATH=$PATH:/home/abysswalker/opt/flutter/bin/
+export PATH=$PATH:/home/abysswalker/Android/Sdk/
+export CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
